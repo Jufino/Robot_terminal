@@ -1,0 +1,144 @@
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\bin\Debug\robot.exe
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\bin\Debug\robot.pdb
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\obj\Debug\robot.Form1.resources
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\obj\Debug\robot.exe
+C:\Documents and Settings\Administrator\Local Settings\Application Data\Temporary Projects\robot\obj\Debug\robot.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\obj\Debug\robot.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\obj\Debug\robot.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\bin\Debug\robot.exe
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\bin\Debug\robot.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\obj\Debug\robot.Form1.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\robot\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\robot\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\robot\robot\obj\Debug\robot.Form1.resources
+C:\Users\Miloš\Desktop\robot\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\robot\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\robot com soft\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\robot com soft\robot\obj\Debug\robot.Form1.resources
+C:\Users\Miloš\Desktop\robot com soft\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\robot com soft\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\robot.panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 11.8\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\robot.panel.resources
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\Nový priečinok (6)\robot com soft - 11.8\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.pdb
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.panel.resources
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\bin\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft - 12.10\robot\bin\Debug\robot.pdb
+G:\robot com soft - 4.11\robot\obj\Debug\robot.exe
+G:\robot com soft - 4.11\robot\obj\Debug\robot.pdb
+G:\robot com soft - 4.11\robot\bin\Debug\robot.exe
+G:\robot com soft - 4.11\robot\bin\Debug\robot.pdb
+G:\robot com soft - 4.11\robot\obj\Debug\ResolveAssemblyReference.cache
+G:\robot com soft - 4.11\robot\obj\Debug\robot.kamera_panel.resources
+G:\robot com soft - 4.11\robot\obj\Debug\robot.panel.resources
+G:\robot com soft - 4.11\robot\obj\Debug\robot.graf_panel.resources
+G:\robot com soft - 4.11\robot\obj\Debug\robot.Properties.Resources.resources
+G:\robot com soft - 4.11\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\robot.panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\robot com soft - 4.11\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.pdb
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.panel.resources
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\bin\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft - 6.11\robot\bin\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\robot.pdb
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\robot.panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\bin\Debug\robot.exe
+C:\Users\Miloš\Desktop\robot com soft - 8.11\robot\bin\Debug\robot.pdb
+C:\Users\Jufo\Documents\zaloha plocha 13.11\robot com soft - 8.11\robot\obj\Debug\robot.exe
+C:\Users\Jufo\Documents\zaloha plocha 13.11\robot com soft - 8.11\robot\obj\Debug\robot.pdb
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\robot.pdb
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\robot.panel.resources
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\bin\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft -13.11\robot\bin\Debug\robot.pdb
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.pdb
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.kamera_panel.resources
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.panel.resources
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.graf_panel.resources
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\bin\Debug\robot.exe
+C:\Users\Jufo\Desktop\robot com soft -1.12\robot\bin\Debug\robot.pdb
