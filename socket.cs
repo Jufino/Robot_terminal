@@ -8,24 +8,20 @@ using System.Drawing;
 
 namespace socket_com
 {
-    /// <summary>
-    /// kniznica urcena pre komunikaciu z beagle cez klastrovy protokol
-    /// </summary>
     class socket
     {
-        //staticke funkcie - funkcie pre dekodovanie
-        static int byte_for_dat = 1;		//2 na bit_for_dat = pocet dat ktore sa daju preniest
-        static int byte_for_char = 1;		//2 na bit_for_char = pocet znakov v jednotlivych datach
-        /// <summary>
-        /// coding data protocol
-        /// </summary>
-        /// <param name="data_vstup">data na kodovanie typu string[]</param>
-        private string code(string[] data_vstup)
+
+        private string gafuso_code(string[] data_vstup)
         {
             string data_vystup = "";
             int size = data_vstup.Length;
-            //urcuje pocet dat-----------------------
             int poc_char_pocitadlo = 0;
+            int byte_for_dat=1;
+            int byte_for_char=1;
+            for (int o = 8; size > System.Math.Pow(2, o); o = o + 8) byte_for_dat = o / 8;
+            for (int o = 8; data_vstup.Max().Length > System.Math.Pow(2, o); o = o + 8) byte_for_char = o / 8;
+            data_vystup += Convert.ToChar(byte_for_dat);
+            data_vystup += Convert.ToChar(byte_for_char);
             try
             {
                 for (int o = 0; o != byte_for_dat; o++)
@@ -33,20 +29,17 @@ namespace socket_com
                     data_vystup += Convert.ToChar((size >> poc_char_pocitadlo) & 0xFF);
                     poc_char_pocitadlo += 8;
                 }
-                //----------------------------------------
                 for (int i = 0; i != size; i++)
                 {
-                    //pocet znakov v nasledujucom data------------------
-                    poc_char_pocitadlo = 0;
+                    poc_char_pocitadlo = 0;     
                     for (int o = 0; o != byte_for_char; o++)
                     {
                         data_vystup += Convert.ToChar((data_vstup[i].Length >> poc_char_pocitadlo) & 0xFF);
                         poc_char_pocitadlo += 8;
                     }
-                    //vkladanie data do znakov--------------------------
                     for (int z = 0; z != data_vstup[i].Length; z++)
                     {
-                        data_vystup += data_vstup[i][z];	//vlozi hodnotu znaku
+                        data_vystup += data_vstup[i][z];
                     }
                     //--------------------------------------------------
                 }
@@ -57,12 +50,7 @@ namespace socket_com
                 return null;
             }
         }
-        //dekoduje data zakodovane v klastrovom protokole       
-        /// <summary>
-        /// decoding data protocol
-        /// </summary>
-        /// <param name="data_vstup">vstupne data na dekodovanie - typ string</param>
-        private string[] decode(string data_vstup)
+        private string[] gafuso_decode(string data_vstup)
         {
             int posun = 0;
             int size = 0;
@@ -70,6 +58,9 @@ namespace socket_com
             int poc_char_pocitadlo = 0;
             try
             {
+                int byte_for_dat = data_vstup[posun];
+                int byte_for_char = data_vstup[posun+1];
+                posun += 2;
                 //nacita pocet dat--------------------
                 for (int o = 0; o != byte_for_dat; o++)
                 {
@@ -110,12 +101,8 @@ namespace socket_com
         private Socket socket_client;
         //-----------------------------------------------------------------
         int data_recv_buffer = 1000;
-        /// <summary>
-        /// open data_buffer
-        /// </summary>
-        /// <param name="IP">ip adresa serveru</param>
-        /// <param name="Port">cislo portu serveru</param>
-        public bool open_socket(String IP, String Port)
+
+        public bool socket_open(String IP, String Port)
         {
             try
             {
@@ -127,17 +114,14 @@ namespace socket_com
                 return true;
 
             }
-            catch (SocketException se)
+            catch
             {
                 return false;
             }
 
         }
 
-        /// <summary>
-        /// close data_buffer
-        /// </summary>
-        public bool close_socket()
+        public bool socket_close()
         {
             try
             {
@@ -149,10 +133,8 @@ namespace socket_com
                 return false;
             }
         }
-        /// <summary>
-        /// receive data from data_buffer, output ascii
-        /// </summary>
-        private string recv_ascii()
+
+        private string socket_recv_ascii()
         {
             int receivedBytesLen = 0;
             try
@@ -166,10 +148,8 @@ namespace socket_com
                 return null;
             }
         }
-        /// <summary>
-        /// receive data from data_buffer, output byte array
-        /// </summary>
-        private byte[] recv_byte()
+
+        private byte[] socket_recv_bytes()
         {
             byte[] buffer = new byte[data_recv_buffer];
             try
@@ -182,11 +162,8 @@ namespace socket_com
                 return null;
             }
         }
-        /// <summary>
-        /// send data to data_buffer
-        /// </summary>
-        /// <param name="objData">data</param>
-        private bool send_data(Object objData)
+
+        private bool socket_send_string(Object objData)
         {
             try
             {
@@ -200,175 +177,36 @@ namespace socket_com
             }
 
         }
-        //---------------------------------------------------------------
-        //*************************Funkcie******************************/
-        //---------------------------------------------------------------
-        /// <summary>
-        /// send command and data
-        /// </summary>
-        /// <param name="command">command slovo pre server</param>
-        /// <param name="data">dalsie data pre server</param>
-        public void sendcommanddataarray(string riadiace, string[] data)
+
+        public void gafuso_send_data(string data)
         {
-            string velkost;
-            string[] pomocny = new string[data.Length + 1];
-            pomocny[0] = riadiace;
-            for (int x = 1; x != pomocny.Length; x++)
-            {
-                pomocny[x] = data[x - 1];
-            }
-            string buffer = code(pomocny);
-            if (buffer.Length < 10)
-                velkost = "0000" + buffer.Length.ToString();
-            else if (buffer.Length < 100)
-                velkost = "000" + buffer.Length.ToString();
-            else if (buffer.Length < 1000)
-                velkost = "00" + buffer.Length.ToString();
-            else if (buffer.Length < 10000)
-                velkost = "0" + buffer.Length.ToString();
-            else
-                velkost = buffer.Length.ToString();
-            send_data(velkost);
-            send_data(buffer);
+            string[] pomocny = new string[1];
+            pomocny[0] = data;
+            socket_send_string(gafuso_code(pomocny));
         }
-        /// <summary>
-        /// send command and data
-        /// </summary>
-        public void sendcommanddata(string riadiace, string data)
+ 
+        public void gafuso_send_array(string[] data)
         {
-            string velkost;
-            string[] pomocny = new string[2];
-            pomocny[0] = riadiace;
-            pomocny[1] = data;
-            string buffer = code(pomocny);
-            if (buffer.Length < 10)
-                velkost = "0000" + buffer.Length.ToString();
-            else if (buffer.Length < 100)
-                velkost = "000" + buffer.Length.ToString();
-            else if (buffer.Length < 1000)
-                velkost = "00" + buffer.Length.ToString();
-            else if (buffer.Length < 10000)
-                velkost = "0" + buffer.Length.ToString();
-            else
-                velkost = buffer.Length.ToString();
-            send_data(velkost);
-            send_data(buffer);
+            socket_send_string(gafuso_code(data));
         }
-        /// <summary>
-        /// send data array with code
-        /// </summary>
-        public void send_data_array(string[] data)
+
+        public string[] gafuso_recv_array()
         {
-            string velkost;
-            string buffer = code(data);
-            if (buffer.Length < 10)
-                velkost = "0000" + buffer.Length.ToString();
-            else if (buffer.Length < 100)
-                velkost = "000" + buffer.Length.ToString();
-            else if (buffer.Length < 1000)
-                velkost = "00" + buffer.Length.ToString();
-            else if (buffer.Length < 10000)
-                velkost = "0" + buffer.Length.ToString();
-            else
-                velkost = buffer.Length.ToString();
-            send_data(velkost);
-            send_data(buffer);
+            return gafuso_decode(socket_recv_ascii());
         }
-        //---------------------------------------------------------------
-        /// <summary>
-        /// send command and data, receive string array
-        /// </summary>
-        public string[] sendcommanddata_recvarray(string riadiace, string[] data)
-        {
-            string velkost;
-            string[] pomocny = new string[data.Length + 1];
-            pomocny[0] = riadiace;
-            for (int x = 1; x != pomocny.Length; x++)
-            {
-                pomocny[x] = data[x - 1];
-            }
-            string buffer = code(pomocny);
-            if (buffer.Length < 10)
-                velkost = "0000" + buffer.Length.ToString();
-            else if (buffer.Length < 100)
-                velkost = "000" + buffer.Length.ToString();
-            else if (buffer.Length < 1000)
-                velkost = "00" + buffer.Length.ToString();
-            else if (buffer.Length < 10000)
-                velkost = "0" + buffer.Length.ToString();
-            else
-                velkost = buffer.Length.ToString();
-            send_data(velkost);
-            send_data(buffer);
-            string buffer_prijem = recv_ascii();
-            //----------------------------------
-            return decode(buffer_prijem);
-        }
-        //---------------------------------------------------------------
-        /// <summary>
-        /// send command
-        /// </summary>
-        public void sendommand(string riadiace)
-        {
-            string velkost;
-            string[] pomocny = new string[2];
-            pomocny[0] = riadiace;
-            pomocny[1] = "ahoj";
-            string buffer = code(pomocny);
-            if (buffer.Length < 10)
-                velkost = "0000" + buffer.Length.ToString();
-            else if (buffer.Length < 100)
-                velkost = "000" + buffer.Length.ToString();
-            else if (buffer.Length < 1000)
-                velkost = "00" + buffer.Length.ToString();
-            else if (buffer.Length < 10000)
-                velkost = "0" + buffer.Length.ToString();
-            else
-                velkost = buffer.Length.ToString();
-            send_data(velkost);
-            send_data(buffer);
-        }
-        //---------------------------------------------------------------
-        /// <summary>
-        /// send command and receive string
-        /// </summary>
-        /// <param name="command">command slovo pre server</param>
-        public string sendcommand_recvstring(string riadiace)
-        {
-            sendommand(riadiace);
-            //----------------------------------
-            string buffer_prijem = recv_ascii();
-            //----------------------------------
-            return decode(buffer_prijem)[0];
-        }
-        //---------------------------------------------------------------
-        /// <summary>
-        /// send command and receive string array
-        /// </summary>
-        /// <param name="command">command slovo pre server</param>
-        public string[] sendcommand_recvarray(string command)
-        {
-            sendommand(command);
-            //----------------------------------
-            string buffer_prijem = recv_ascii();
-            //----------------------------------
-            return decode(buffer_prijem);
-        }
-        //---------------------------------------------------------------
+
         int picturewidth = 320;
         int pictureheight = 160;
-        private int obr_recv_buffer = 300000;
+        private int obr_recv_buffer = 300000; 
         Bitmap picture;
-        /// <summary>
-        /// receive picture_height
-        /// </summary>
-        public Bitmap recv_picture_original(string name_obr)
+
+        //nieje vyskusane
+        public Bitmap recv_picture()
         {
             byte[] data_prijem = new byte[obr_recv_buffer];
-            sendommand(name_obr);
             try
             {
-                socket_client.Receive(data_prijem);
+                data_prijem = socket_recv_bytes();
                 ImageConverter ic = new ImageConverter();
                 Image img = (Image)ic.ConvertFrom(data_prijem);
                 picture = new Bitmap(img, picturewidth, pictureheight);
@@ -376,39 +214,7 @@ namespace socket_com
             catch { }
             return picture;
         }
-        /// <summary>
-        /// how data char you can send by one data 2 on byte_for_char*8=how char
-        /// </summary>
-        public int byte_for_char_protocol
-        {
-            get
-            {
-                return byte_for_char;
-            }
-            set
-            {
-                byte_for_char = value;
-            }
-        }
 
-        /// <summary>
-        /// how data you can send 2 on byte_for_byte*8=how data
-        /// </summary>
-        public int byte_for_dat_protocol
-        {
-            get
-            {
-                return byte_for_dat;
-            }
-            set
-            {
-                byte_for_dat = value;
-            }
-        }
-
-        /// <summary>
-        /// how max size have receive data
-        /// </summary>
         public int data_buffer
         {
             get
@@ -421,9 +227,6 @@ namespace socket_com
             }
         }
 
-        /// <summary>
-        /// width picture
-        /// </summary>
         public int picture_width
         {
             get
@@ -435,6 +238,7 @@ namespace socket_com
                 picturewidth = value;
             }
         }
+       
         public int receive_timeout
         {
             get
@@ -446,6 +250,7 @@ namespace socket_com
                 socket_client.ReceiveTimeout = value;
             }
         }
+       
         public int send_timeout
         {
             get
@@ -457,9 +262,7 @@ namespace socket_com
                 socket_client.SendTimeout = value;
             }
         }
-        /// <summary>
-        /// height picture
-        /// </summary>
+      
         public int picture_height
         {
             get
@@ -471,9 +274,7 @@ namespace socket_com
                 pictureheight = value;
             }
         }
-        /// <summary>
-        /// how max size have picture
-        /// </summary>
+
         public int obr_buffer
         {
             get
@@ -485,7 +286,5 @@ namespace socket_com
                 obr_recv_buffer = value;
             }
         }
-        //---------------------------------------------------------------
-        //**************************************************************/
     }
 }

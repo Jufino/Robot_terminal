@@ -29,7 +29,7 @@ namespace robot
             play_button.Image = velkost_button(play_button, 10);
             kamera_rec.create_buffer();
             //group enabled------------------------
-            group_automotion.Enabled = true;
+            group_automotion.Enabled = false;
             group_compass.Enabled = false;
             group_graphic_position.Enabled = false;
             group_IR_Sensors.Enabled = false;
@@ -74,7 +74,7 @@ namespace robot
         
         private void Close_socket_Click(object sender, EventArgs e)
         {
-            robot_socket.sendommand("vyp");     //odosle pocitacu nech sa vypne
+            robot_socket.sendcommand("vyp");
             robot_socket.close_socket();        //ukonci spojenie
             //group enabled------------------------
             group_automotion.Enabled = false;
@@ -110,9 +110,9 @@ namespace robot
                 else
                     max_hod.Text = "Null";
                 //----------------------------------------------------------------
-                Kompas_8bit_box.Text = (data[9] * 2).ToString();              //kompas 8bit
+                Kompas_8bit_box.Text = (data[10] * 2).ToString();              //kompas 8bit
                 //----------------------------------------------------------------
-                if (data[10] == 1)                                          //senzor kicker
+                if (data[9] == 1)                                          //senzor kicker
                     Kick_sens.Checked = true;
                 else
                     Kick_sens.Checked = false;
@@ -195,7 +195,7 @@ namespace robot
             #endregion
             #region kompas_graficky
             int r = 50;
-            float uhol = data[9]*2;
+            float uhol = data[10]*2;
             int pozicia_x = 80;
             int pozicia_y = 80;
             double rad;
@@ -223,7 +223,7 @@ namespace robot
                 }
                 else
                 {
-                        robot_socket.sendommand("reset");
+                    robot_socket.sendcommanddata("reset", "blabla");
                 }
                 this.Invoke(new EventHandler(Vypis_hodnoty));
         }

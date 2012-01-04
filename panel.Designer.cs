@@ -561,7 +561,6 @@ namespace robot
             // Kick_sens
             // 
             this.Kick_sens.AutoSize = true;
-            this.Kick_sens.Enabled = false;
             this.Kick_sens.Location = new System.Drawing.Point(16, 19);
             this.Kick_sens.Margin = new System.Windows.Forms.Padding(2);
             this.Kick_sens.Name = "Kick_sens";
@@ -574,7 +573,6 @@ namespace robot
             // 
             // Kick_button
             // 
-            this.Kick_button.Enabled = false;
             this.Kick_button.Location = new System.Drawing.Point(10, 39);
             this.Kick_button.Margin = new System.Windows.Forms.Padding(2);
             this.Kick_button.Name = "Kick_button";
@@ -933,7 +931,6 @@ namespace robot
             // 
             // LED_vyp
             // 
-            this.LED_vyp.Enabled = false;
             this.LED_vyp.Location = new System.Drawing.Point(6, 45);
             this.LED_vyp.Margin = new System.Windows.Forms.Padding(2);
             this.LED_vyp.Name = "LED_vyp";
@@ -945,7 +942,6 @@ namespace robot
             // 
             // LED_zap
             // 
-            this.LED_zap.Enabled = false;
             this.LED_zap.Location = new System.Drawing.Point(6, 15);
             this.LED_zap.Margin = new System.Windows.Forms.Padding(2);
             this.LED_zap.Name = "LED_zap";
@@ -1011,7 +1007,6 @@ namespace robot
             // 
             // Socket_aktualizacia
             // 
-            this.Socket_aktualizacia.Interval = 70;
             this.Socket_aktualizacia.Tick += new System.EventHandler(this.Socket_aktualizacia_Tick);
             // 
             // otvor_txt

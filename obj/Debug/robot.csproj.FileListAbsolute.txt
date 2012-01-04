@@ -142,3 +142,13 @@ C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.Properties.Reso
 C:\Users\Jufo\Desktop\robot com soft -1.12\robot\obj\Debug\robot.csproj.GenerateResource.Cache
 C:\Users\Jufo\Desktop\robot com soft -1.12\robot\bin\Debug\robot.exe
 C:\Users\Jufo\Desktop\robot com soft -1.12\robot\bin\Debug\robot.pdb
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.exe
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.pdb
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.kamera_panel.resources
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.panel.resources
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.graf_panel.resources
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.csproj.GenerateResource.Cache
+C:\Users\Jufo\git-jufino\Robot_terminal\bin\Debug\robot.exe
+C:\Users\Jufo\git-jufino\Robot_terminal\bin\Debug\robot.pdb
+C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.Properties.Resources.resources
