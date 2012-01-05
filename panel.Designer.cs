@@ -762,6 +762,7 @@ namespace robot
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.group_automotion);
             this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.tabControl2);
@@ -780,24 +781,23 @@ namespace robot
             // 
             // group_automotion
             // 
-            this.group_automotion.Controls.Add(this.button1);
             this.group_automotion.Controls.Add(this.start);
             this.group_automotion.Controls.Add(this.button3);
             this.group_automotion.Location = new System.Drawing.Point(6, 243);
             this.group_automotion.Margin = new System.Windows.Forms.Padding(2);
             this.group_automotion.Name = "group_automotion";
             this.group_automotion.Padding = new System.Windows.Forms.Padding(2);
-            this.group_automotion.Size = new System.Drawing.Size(82, 104);
+            this.group_automotion.Size = new System.Drawing.Size(82, 79);
             this.group_automotion.TabIndex = 21;
             this.group_automotion.TabStop = false;
             this.group_automotion.Text = "AutoMotion";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(8, 72);
+            this.button1.Location = new System.Drawing.Point(5, 326);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 21);
+            this.button1.Size = new System.Drawing.Size(83, 21);
             this.button1.TabIndex = 0;
             this.button1.Text = "Camera";
             this.button1.UseVisualStyleBackColor = true;

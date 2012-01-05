@@ -50,8 +50,6 @@ namespace robot
             }
             else
             {
-                robot_socket.receive_timeout = 100;
-                robot_socket.send_timeout = 100;
                 string[] pomocny = {"smer","2","0"};
                 robot_socket.gafuso_send_array(pomocny);
                 string[] pomocnyx = { "rych", "2", "200" };

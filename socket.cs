@@ -10,7 +10,6 @@ namespace socket_com
 {
     class socket
     {
-
         private string gafuso_code(string[] data_vstup)
         {
             string data_vystup = "";
@@ -100,7 +99,7 @@ namespace socket_com
         //-----------------------------------------------------------------
         private Socket socket_client;
         //-----------------------------------------------------------------
-        int data_recv_buffer = 1000;
+        int data_recv_buffer = 300000;
 
         public bool socket_open(String IP, String Port)
         {
@@ -197,16 +196,14 @@ namespace socket_com
 
         int picturewidth = 320;
         int pictureheight = 160;
-        private int obr_recv_buffer = 300000; 
         Bitmap picture;
 
         //nieje vyskusane
         public Bitmap recv_picture()
         {
-            byte[] data_prijem = new byte[obr_recv_buffer];
             try
             {
-                data_prijem = socket_recv_bytes();
+                byte[] data_prijem = socket_recv_bytes();
                 ImageConverter ic = new ImageConverter();
                 Image img = (Image)ic.ConvertFrom(data_prijem);
                 picture = new Bitmap(img, picturewidth, pictureheight);
@@ -272,18 +269,6 @@ namespace socket_com
             set
             {
                 pictureheight = value;
-            }
-        }
-
-        public int obr_buffer
-        {
-            get
-            {
-                return obr_recv_buffer;
-            }
-            set
-            {
-                obr_recv_buffer = value;
             }
         }
     }
