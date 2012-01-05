@@ -19,7 +19,7 @@ namespace robot
         
         public void open_camera(string ip_kamera)
         {
-                kamera.open_socket(ip_kamera,"1212");
+                kamera.socket_open(ip_kamera,"1212");
                 kamera.receive_timeout = 10;
                 kamera.send_timeout = 10;
                 kamera_timer.Enabled = true;
@@ -36,7 +36,7 @@ namespace robot
             pictureBox1.Size = this.Size;
             kamera.picture_width = pictureBox1.Size.Width-40;
             kamera.picture_height = pictureBox1.Size.Height-60;
-            if (riadenie_povel == 0) obrazok = kamera.recv_picture_original("img");
+            if (riadenie_povel == 0) obrazok = kamera.recv_picture();
             pictureBox1.Image = obrazok;
             fps++;
         }
@@ -69,7 +69,7 @@ namespace robot
 
         private void vypnute_okno(object sender, FormClosedEventArgs e)
         {
-            kamera.close_socket();
+            kamera.socket_close();
         }
 
         private void fps_timer_Tick(object sender, EventArgs e)

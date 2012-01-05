@@ -44,7 +44,7 @@ namespace robot
         
         private void Open_socket_Click(object sender, EventArgs e)
         {
-            if (robot_socket.open_socket(textBox_IP.Text, "1213") == false)
+            if (robot_socket.socket_open(textBox_IP.Text, "1213") == false)
             {
                 MessageBox.Show("Problem s otvorenim portu");
             }
@@ -52,9 +52,10 @@ namespace robot
             {
                 robot_socket.receive_timeout = 100;
                 robot_socket.send_timeout = 100;
-                robot_socket.sendcommanddata("smer", "0");
-                robot_socket.sendcommanddata("rych", "200");
-                robot_socket.sendcommanddata("prikaz", "L0ed");
+                string[] pomocny = {"smer","2","0"};
+                robot_socket.gafuso_send_array(pomocny);
+                string[] pomocnyx = { "rych", "2", "200" };
+                robot_socket.gafuso_send_array(pomocnyx); 
                 Graficka_aktualizacia.Enabled = true;
                 Socket_aktualizacia.Enabled = true;
                 //group enabled------------------------
@@ -74,8 +75,7 @@ namespace robot
         
         private void Close_socket_Click(object sender, EventArgs e)
         {
-            robot_socket.sendcommand("vyp");
-            robot_socket.close_socket();        //ukonci spojenie
+            robot_socket.socket_close();        //ukonci spojenie
             //group enabled------------------------
             group_automotion.Enabled = false;
             group_compass.Enabled = false;
@@ -92,32 +92,27 @@ namespace robot
         int[] data = new int[20];
         int prijate_data = 0;
         private void Vypis_hodnoty(object sender, EventArgs e)
-        {
-            
+        {        
             prijate_data++;
-                Sens1.Text = data[0].ToString();                 //Senzor1
-                Sens2.Text = data[1].ToString();                 //Senzor2
-                Sens3.Text = data[2].ToString();                 //Senzor3
-                Sens4.Text = data[3].ToString();                 //Senzor4
-                Sens5.Text = data[4].ToString();                 //Senzor5
-                Sens6.Text = data[5].ToString();                 //Senzor6
-                Sens7.Text = data[6].ToString();                 //Senzor7
-                Sens8.Text = data[7].ToString();                  //Senzor8
-
-                //---------------------------------------------------------------
-                if (data[8] != 17)
-                    max_hod.Text = data[8].ToString();                      //Max hodnota Senzor
-                else
-                    max_hod.Text = "Null";
-                //----------------------------------------------------------------
-                Kompas_8bit_box.Text = (data[10] * 2).ToString();              //kompas 8bit
-                //----------------------------------------------------------------
-                if (data[9] == 1)                                          //senzor kicker
-                    Kick_sens.Checked = true;
-                else
-                    Kick_sens.Checked = false;
-                //----------------------------------------------------------------
-                senzor_spolu.graf_spolu = odosli_graf_spolu(data, 10);
+            Sens1.Text = data[0].ToString();                 //Senzor1
+            Sens2.Text = data[1].ToString();                 //Senzor2
+            Sens3.Text = data[2].ToString();                 //Senzor3
+            Sens4.Text = data[3].ToString();                 //Senzor4
+            Sens5.Text = data[4].ToString();                 //Senzor5
+            Sens6.Text = data[5].ToString();                 //Senzor6
+            Sens7.Text = data[6].ToString();                 //Senzor7
+            Sens8.Text = data[7].ToString();                  //Senzor8
+            //---------------------------------------------------------------
+            if (data[8] != 17)  max_hod.Text = data[8].ToString();           //Max hodnota Senzor
+            else                max_hod.Text = "Null";
+                
+            //----------------------------------------------------------------
+            Kompas_8bit_box.Text = (data[9] * 2).ToString();               //kompas 8bit
+            //----------------------------------------------------------------
+            if (data[10] == 1)   Kick_sens.Checked = true;                     //senzor kicker 
+            else                Kick_sens.Checked = false;
+            //----------------------------------------------------------------
+            senzor_spolu.graf_spolu = odosli_graf_spolu(data, 10);
         }
         
         private void Graficka_aktualizacia_Tick(object sender, EventArgs e)
@@ -195,7 +190,7 @@ namespace robot
             #endregion
             #region kompas_graficky
             int r = 50;
-            float uhol = data[10]*2;
+            float uhol = data[9]*2;
             int pozicia_x = 80;
             int pozicia_y = 80;
             double rad;
@@ -213,7 +208,9 @@ namespace robot
         
         private void Socket_aktualizacia_Tick(object sender, EventArgs e)
         {
-                string[] xdata = robot_socket.sendcommand_recvarray("data");
+                string[] pomocny = { "data", "11"};
+                robot_socket.gafuso_send_array(pomocny);
+                string[] xdata = robot_socket.gafuso_recv_array();
                 if (xdata != null)
                 {
                     for (int x = 0; x < xdata.Length; x++)
@@ -223,7 +220,7 @@ namespace robot
                 }
                 else
                 {
-                    robot_socket.sendcommanddata("reset", "blabla");
+                    robot_socket.gafuso_send_data("reset");
                 }
                 this.Invoke(new EventHandler(Vypis_hodnoty));
         }
@@ -233,70 +230,110 @@ namespace robot
         private void Hore_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "1");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "1";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
         private void Hore_vpravo_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "2");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "2";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
         private void Vpravo_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "3");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "3";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
       
         private void Dole_vpravo_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "4");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "4";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
        
         private void Dole_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "5");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "5";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
         private void Dole_vlavo_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "6");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "6";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
         private void Vlavo_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "7");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "7";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
         private void Hore_vlavo_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "8");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "8";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
         private void Stop_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("smer", "0");
+            string[] pomocny = new string[3];
+            pomocny[0] = "smer";
+            pomocny[1] = "2";
+            pomocny[2] = "0";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
         private void zmena_rychlosti(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("rych", rychlost_num.Value.ToString());
+            string[] pomocny = new string[3];
+            pomocny[0] = "rych";
+            pomocny[1] = "2";
+            pomocny[2] = rychlost_num.Value.ToString();
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         
@@ -334,7 +371,10 @@ namespace robot
         private void Kick_button_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("prikaz", "kick");
+            string[] pomocny = new string[2];
+            pomocny[0] = "kick";
+            pomocny[1] = "1";
+            robot_socket.gafuso_send_array(pomocny);
             System.Threading.Thread.Sleep(500);
             Socket_aktualizacia.Enabled = true;
         }
@@ -342,14 +382,20 @@ namespace robot
         private void LED_vyp_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("prikaz", "LED0");
+            string[] pomocny = new string[2];
+            pomocny[0] = "LED0";
+            pomocny[1] = "1";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
        
         private void LED_zap_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("prikaz", "LED1");
+            string[] pomocny = new string[2];
+            pomocny[0] = "LED1";
+            pomocny[1] = "1";
+            robot_socket.gafuso_send_array(pomocny);
             Socket_aktualizacia.Enabled = true;
         }
         //-------------------------------------- 
@@ -685,22 +731,23 @@ namespace robot
             {
                 switch (now)
                 {
-                    case "z_t_1":
-                        if (rychlost_num.Value - 5 >= rychlost_num.Minimum)
-                            rychlost_num.Value = rychlost_num.Value - 5; break;
+                    case "z_t_1":   if (rychlost_num.Value - 5 >= rychlost_num.Minimum)
+                                    rychlost_num.Value = rychlost_num.Value - 5; break;
                     case "z_t_2":
-                        robot_socket.sendcommanddata("smer", "0");
-                        robot_socket.sendcommanddata("prikaz", "kick");
-                        System.Threading.Thread.Sleep(300); break;
-                    case "z_t_3": robot_socket.sendcommanddata("prikaz", "LED0"); break;
-                    case "z_t_4":
-                        if (rychlost_num.Value + 5 <= rychlost_num.Maximum)
-                            rychlost_num.Value = rychlost_num.Value + 5; break;
-                    case "z_t_5": robot_socket.sendcommanddata("prikaz", "obch"); break;
-                    case "z_t_6": robot_socket.sendcommanddata("prikaz", "LED1"); break;
-                    case "z_t_7": robot_socket.sendcommanddata("smer", "9"); break;
-                    case "z_t_8": robot_socket.sendcommanddata("smer", "10"); break;
-                    default: robot_socket.sendcommanddata("smer", now); break;
+                                    this.Invoke(new EventHandler(Stop_Click));
+                                    this.Invoke(new EventHandler(Kick_button_Click));
+                                    System.Threading.Thread.Sleep(300); break;
+                    case "z_t_3":   this.Invoke(new EventHandler(LED_zap_Click)); break;
+                    case "z_t_4":   if (rychlost_num.Value + 5 <= rychlost_num.Maximum)
+                                    rychlost_num.Value = rychlost_num.Value + 5;    break;
+                    case "z_t_5":                                                   break;
+                    case "z_t_6":   this.Invoke(new EventHandler(LED_vyp_Click));          break;
+                    case "z_t_7":   string[] pomocny = {"smer","2","9"};
+                                    robot_socket.gafuso_send_array(pomocny);        break;
+                    case "z_t_8":   string[] pomocny1 = {"smer","2","10"};
+                                    robot_socket.gafuso_send_array(pomocny1);       break;
+                    default:        string[] pomocny2 = {"smer","2",now};
+                                    robot_socket.gafuso_send_array(pomocny2);       break;
                 }
                 if (now != "z_t_1" & now != "z_t_4" & now != "z_t_5")
                 {
@@ -717,8 +764,6 @@ namespace robot
         #region kamera_panel
         
         kamera_panel kamera = new kamera_panel();
-
-        bool kamera_status = false;
         
         private void kamera_start_Click(object sender, EventArgs e)
         {
@@ -782,16 +827,14 @@ namespace robot
         private void start_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("prikaz", "L1ed");
+            //zap aut
             Socket_aktualizacia.Enabled = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Socket_aktualizacia.Enabled = false;
-            robot_socket.sendcommanddata("prikaz", "L0ed");
-            System.Threading.Thread.Sleep(50);
-            robot_socket.sendcommanddata("smer", "0");
+            //vyp aut
             Socket_aktualizacia.Enabled = true;
         }
 
