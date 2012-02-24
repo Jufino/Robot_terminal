@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.fps_timer = new System.Windows.Forms.Timer(this.components);
             this.kamera_timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -43,10 +42,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(267, 234);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // fps_timer
-            // 
-            this.fps_timer.Tick += new System.EventHandler(this.fps_timer_Tick);
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // kamera_timer
             // 
@@ -71,7 +67,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Timer fps_timer;
         private System.Windows.Forms.Timer kamera_timer;
     }
 }

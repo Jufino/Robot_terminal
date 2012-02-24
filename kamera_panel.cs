@@ -16,42 +16,31 @@ namespace robot
         {
             InitializeComponent();
         }
-        
-        public void open_camera(string ip_kamera)
-        {
-                kamera.socket_open(ip_kamera,"1212");
-                kamera.receive_timeout = 500;
-                kamera_timer.Enabled = true;
-                fps_timer.Enabled = true;
-        }
+    
         
         socket_com.socket kamera = new socket_com.socket();
 
         Image obrazok;
-        int fps=0;
 
         private void kamera_Tick(object sender, EventArgs e)
         {
             pictureBox1.Size = this.Size;
             kamera.picture_width = pictureBox1.Size.Width-40;
             kamera.picture_height = pictureBox1.Size.Height-60;
-           // if (riadenie_povel == 0) {
-                kamera.gafuso_send_data("img");
-                obrazok = kamera.recv_picture(); 
-           // }
+            kamera.gafuso_send_data("img");
+            obrazok = kamera.recv_picture(); 
             pictureBox1.Image = obrazok;
-            fps++;
         }
         
         public Image aktual_picture
         {
             get
             {
-                return obrazok;
+                return pictureBox1.Image;
             }
             set
             {
-                obrazok = value;
+                pictureBox1.Image = value;
             }
         }
 
@@ -73,11 +62,23 @@ namespace robot
         {
             kamera.socket_close();
         }
-
-        private void fps_timer_Tick(object sender, EventArgs e)
+        string ip_kamera = "192.168.0.2";
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
-            this.Text = (fps*10).ToString();
-            fps = 0;
+            kamera.socket_open(ip_kamera, "1212");
+            kamera.receive_timeout = 500;
+            kamera_timer.Enabled = true;
+        }
+        public string Ip_adress_kamera
+        {
+            get
+            {
+                return ip_kamera;
+            }
+            set
+            {
+                ip_kamera = value;
+            }
         }
     }
 }

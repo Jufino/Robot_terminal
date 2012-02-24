@@ -6,9 +6,9 @@ using System.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
 
-namespace jpgtogif
+namespace gif
 {
-    class save_to_gif
+    class gif
     {
         //1 dielik = 19ms
         //pre kameru 3 = 60 ms
@@ -70,5 +70,19 @@ namespace jpgtogif
         {
             return images[pozicia];
         }
+
+        public void gif_to_images(string GifPath)
+        {
+            Image gifImg = Image.FromFile(GifPath);
+            FrameDimension dimension = new FrameDimension(gifImg.FrameDimensionsList[0]);
+            int frameCount = gifImg.GetFrameCount(dimension);
+            Image[] obrazky_gif = new Image[frameCount];
+            for (int poc = 0; poc < frameCount; poc++)
+            {
+                gifImg.SelectActiveFrame(dimension, poc);
+                images[poc] = new Bitmap(gifImg);
+            }
+        }
+    
     }
 }

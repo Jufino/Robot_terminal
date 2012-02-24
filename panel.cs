@@ -15,10 +15,9 @@ namespace robot
         public panel()
         {
             InitializeComponent();
-            //picture box
+            #region prisposobenie_obrazkov
             robot_obr.Image = velkost_picture_box(robot_obr, 0);
             pictureBox1.Image = velkost_picture_box(pictureBox1, 0);
-            //rec buttons
             back_button.Image = velkost_button(back_button, 10);
             live_button.Image = velkost_button(live_button, 10);
             next_button.Image = velkost_button(next_button, 10);
@@ -28,98 +27,108 @@ namespace robot
             open_button.Image = velkost_button(open_button, 10);
             play_button.Image = velkost_button(play_button, 10);
             kamera_rec.create_buffer();
-            //group enabled------------------------
-            group_automotion.Enabled = false;
-            group_compass.Enabled = false;
-            group_graphic_position.Enabled = false;
-            group_IR_Sensors.Enabled = false;
-            group_kicker.Enabled = false;
-            group_robot_control.Enabled = false;
-            group_espeak.Enabled = false;
-            group_led.Enabled = false;
-            //-------------------------------------
+            #endregion
+        }
+    
+        #region podporne funkcie
+        Image velkost_picture_box(PictureBox old, int posun)
+        {
+            return new Bitmap(old.Image, old.Width - posun, old.Height - posun);
         }
 
-        socket_com.socket robot_socket = new socket_com.socket();
+        Image velkost_button(Button old, int posun)
+        {
+            return new Bitmap(old.Image, old.Width - posun, old.Height - posun);
+        }
         
+        string iftrue(bool a)
+        {
+            if (a == true)
+                return "1";
+            else
+                return "0";
+        }
+
+        void odosli_data_s_blokovanim(string[] pomocny_reg)
+        {
+            while (blok == 1) ;
+            robot_socket.gafuso_send_array(pomocny_reg);
+        }
+        #endregion
+
+        int[] data = new int[20];
+        int prijate_data = 0;
+        int blok = 0;
+        string last = "100";
+
+        Gamepad gamepad = new Gamepad();
+
+        socket_com.socket robot_socket = new socket_com.socket();
         private void Open_socket_Click(object sender, EventArgs e)
         {
-            if (robot_socket.socket_open(textBox_IP.Text, "1213") == false)
+            if (robot_socket.socket_open(textBox_IP.Text, "1213") == true)
             {
-                MessageBox.Show("Problem s otvorenim portu");
-            }
-            else
-            {
-                string[] pomocny = {"smer","2","0"};
-                robot_socket.gafuso_send_array(pomocny);
+                string[] pomocny = { "smer", "2", "0" };
+                odosli_data_s_blokovanim(pomocny);
                 string[] pomocnyx = { "rych", "2", "200" };
-                robot_socket.gafuso_send_array(pomocnyx); 
+                odosli_data_s_blokovanim(pomocnyx);
                 Graficka_aktualizacia.Enabled = true;
                 Socket_aktualizacia.Enabled = true;
-                //group enabled------------------------
                 group_automotion.Enabled = true;
                 group_compass.Enabled = true;
                 group_graphic_position.Enabled = true;
                 group_IR_Sensors.Enabled = true;
                 group_kicker.Enabled = true;
                 group_robot_control.Enabled = true;
-                group_led.Enabled = true;
-                //-------------------------------------
+                button1.Enabled = true;
+                live_button.Enabled = true;
                 Open_socket.Enabled = false;
                 Close_socket.Enabled = true;
+                rec_button.Enabled = true;
+                radio_button.Enabled = true;
+                radio_gamepad.Enabled = true;
             }
-
+            else
+            {
+                MessageBox.Show("Problem s otvorenim portu");
+            }
         }
-        
         private void Close_socket_Click(object sender, EventArgs e)
         {
-            robot_socket.socket_close();        //ukonci spojenie
-            //group enabled------------------------
+            while (blok == 1) ;
+            string[] pomocny = { "smer", "2", "0" };
+            odosli_data_s_blokovanim(pomocny);
+            string[] pomocnyx = { "rych", "2", "200" };
+            odosli_data_s_blokovanim(pomocnyx);
+            Graficka_aktualizacia.Enabled = false;
+            Socket_aktualizacia.Enabled = false;
+            automatic.Enabled = false;
+            rec_timer.Enabled = false;
             group_automotion.Enabled = false;
             group_compass.Enabled = false;
             group_graphic_position.Enabled = false;
             group_IR_Sensors.Enabled = false;
             group_kicker.Enabled = false;
             group_robot_control.Enabled = false;
-            group_led.Enabled = false;
-            group_espeak.Enabled = false;
-            //-------------------------------------            
+            button1.Enabled = false;
             Open_socket.Enabled = true;
+            Close_socket.Enabled = false;
+            live_button.Enabled = false;
+            rec_button.Enabled = false;
+            radio_button.Enabled = false;
+            radio_gamepad.Enabled = false;
+            robot_socket.socket_close();
         }
-        
-        int[] data = new int[20];
-        int prijate_data = 0;
-        private void Vypis_hodnoty(object sender, EventArgs e)
-        {        
-            prijate_data++;
-            Sens1.Text = data[0].ToString();                 //Senzor1
-            Sens2.Text = data[1].ToString();                 //Senzor2
-            Sens3.Text = data[2].ToString();                 //Senzor3
-            Sens4.Text = data[3].ToString();                 //Senzor4
-            Sens5.Text = data[4].ToString();                 //Senzor5
-            Sens6.Text = data[5].ToString();                 //Senzor6
-            Sens7.Text = data[6].ToString();                 //Senzor7
-            Sens8.Text = data[7].ToString();                  //Senzor8
-            //---------------------------------------------------------------
-            if (data[8] != 17)  max_hod.Text = data[8].ToString();           //Max hodnota Senzor
-            else                max_hod.Text = "Null";
-                
-            //----------------------------------------------------------------
-            Kompas_8bit_box.Text = (data[9] * 2).ToString();               //kompas 8bit
-            //----------------------------------------------------------------
-            if (data[10] == 1)   Kick_sens.Checked = true;                     //senzor kicker 
-            else                Kick_sens.Checked = false;
-            //----------------------------------------------------------------
-            senzor_spolu.graf_spolu = odosli_graf_spolu(data, 10);
-        }
-        
+
+        #region timre a vypis hodnoty
+
         private void Graficka_aktualizacia_Tick(object sender, EventArgs e)
         {
             #region senzory_graficky
             switch (data[8])
             {
-                case 1: 
-                    Sens_0.Checked = true; 
+                case 1:
+                    Sens_0.Checked = true;
                     break;
                 case 2:
                     Sens_1.Checked = true;
@@ -188,7 +197,7 @@ namespace robot
             #endregion
             #region kompas_graficky
             int r = 50;
-            float uhol = data[9]*2;
+            float uhol = data[9] * 2;
             int pozicia_x = 80;
             int pozicia_y = 80;
             double rad;
@@ -197,206 +206,220 @@ namespace robot
             rad = (2 * Math.PI / 360) * uhol;
             System.Drawing.Graphics a = Kompas_graficky.CreateGraphics();
             a.Clear(group_compass.BackColor);
-            a.DrawEllipse(new Pen(Color.FromArgb(0,147,221), 5), new Rectangle(pozicia_x - r, pozicia_y - r, r * 2, r * 2));
-            y1 = Convert.ToInt16(pozicia_y + r * Math.Cos(rad)*(-1));
+            a.DrawEllipse(new Pen(Color.FromArgb(0, 147, 221), 5), new Rectangle(pozicia_x - r, pozicia_y - r, r * 2, r * 2));
+            y1 = Convert.ToInt16(pozicia_y + r * Math.Cos(rad) * (-1));
             x1 = Convert.ToInt16(pozicia_x + r * Math.Sin(rad));
-            a.DrawLine(new Pen(Color.FromArgb(132,194,37), 4), new Point(pozicia_x, pozicia_y), new Point(x1, y1));
+            a.DrawLine(new Pen(Color.FromArgb(132, 194, 37), 4), new Point(pozicia_x, pozicia_y), new Point(x1, y1));
             #endregion
         }
-        
+
         private void Socket_aktualizacia_Tick(object sender, EventArgs e)
         {
-                string[] pomocny = { "data", "11"};
-                robot_socket.gafuso_send_array(pomocny);
+            blok = 1;
+            string[] pomocny = { "data", "11" };
+            robot_socket.receive_timeout = 10;
+            robot_socket.gafuso_send_array(pomocny);
+            try
+            {
                 string[] xdata = robot_socket.gafuso_recv_array();
-                if (xdata != null)
-                {
-                    for (int x = 0; x < xdata.Length; x++)
-                    {
-                        data[x] = Convert.ToInt16(xdata[x]);
-                    }
-                }
-                else
-                {
-                    robot_socket.gafuso_send_data("reset");
-                }
                 this.Invoke(new EventHandler(Vypis_hodnoty));
+            }
+            catch
+            {
+                robot_socket.gafuso_send_data("reset");
+            }
+            blok = 0;
         }
-      
-        #region---------------------ovladanie motorov robota--------------------------
-        
+
+        private void Vypis_hodnoty(object sender, EventArgs e)
+        {
+            Sens1.Text = data[0].ToString();                        //Senzor1
+            Sens2.Text = data[1].ToString();                        //Senzor2
+            Sens3.Text = data[2].ToString();                        //Senzor3
+            Sens4.Text = data[3].ToString();                        //Senzor4
+            Sens5.Text = data[4].ToString();                        //Senzor5
+            Sens6.Text = data[5].ToString();                        //Senzor6
+            Sens7.Text = data[6].ToString();                        //Senzor7
+            Sens8.Text = data[7].ToString();                        //Senzor8
+            //---------------------------------------------------------------
+            if (data[8] != 17) max_hod.Text = data[8].ToString();  //Max hodnota Senzor
+            else max_hod.Text = "Null";
+            //----------------------------------------------------------------
+            Kompas_8bit_box.Text = (data[9] * 2).ToString();        //kompas 8bit
+            //----------------------------------------------------------------
+            if (data[10] == 0) Kick_sens.Checked = true;          //senzor kicker 
+            else Kick_sens.Checked = false;
+            //----------------------------------------------------------------
+            prijate_data++;
+            senzor_spolu.graf_spolu = odosli_graf_spolu(data, 10);
+        }
+
+        private void Gamepad_timer_Tick(object sender, EventArgs e)
+        {
+            string now = gamepad.calc_gamepad(32511, 32767, 8);
+            if (now != last)
+            {
+                switch (now)
+                {
+                    case "z_t_1": if (rychlost_num.Value - 5 >= rychlost_num.Minimum)
+                            rychlost_num.Value = rychlost_num.Value - 5; break;
+                    case "z_t_2": this.Invoke(new EventHandler(Stop_Click));
+                        this.Invoke(new EventHandler(Kick_button_Click));
+                        System.Threading.Thread.Sleep(300); break;
+                    case "z_t_3": this.Invoke(new EventHandler(LED_zap_Click)); break;
+                    case "z_t_4": if (rychlost_num.Value + 5 <= rychlost_num.Maximum)
+                            rychlost_num.Value = rychlost_num.Value + 5; break;
+                    case "z_t_5": break;
+                    case "z_t_6": this.Invoke(new EventHandler(LED_vyp_Click)); break;
+                    case "z_t_7": string[] pomocny = { "smer", "2", "9" };
+                        odosli_data_s_blokovanim(pomocny); break;
+                    case "z_t_8": string[] pomocny1 = { "smer", "2", "10" };
+                        odosli_data_s_blokovanim(pomocny1); break;
+                    case "error": radio_button.Checked = true;
+                        MessageBox.Show("Please connect gamepad"); break;
+                    default: string[] pomocny2 = { "smer", "2", now };
+                        odosli_data_s_blokovanim(pomocny2); break;
+                }
+                if (now != "error")
+                {
+                    last = now;
+                }
+            }
+        }
+
+        private void nahodne_Tick(object sender, EventArgs e)
+        {
+            prijate_data++;
+            System.Random a = new Random();
+            for (int i = 0; i < 8; i++)
+            {
+                data[i] = a.Next(0, 255);
+            }
+
+            data[8] = a.Next(0, 18);
+            data[9] = a.Next(0, 180);
+            data[10] = a.Next(0, 1);
+            this.Invoke(new EventHandler(Vypis_hodnoty));
+        }
+
+        private void automatic_Tick(object sender, EventArgs e)
+        {
+            switch (data[8])
+            {
+                case 17: this.Invoke(new EventHandler(Stop_Click)); break;
+                case 1: this.Invoke(new EventHandler(Hore_Click)); break;
+                case 2: this.Invoke(new EventHandler(Vpravo_Click)); break;
+                case 3: this.Invoke(new EventHandler(Vpravo_Click)); break;
+                case 4: this.Invoke(new EventHandler(Dole_vpravo_Click)); break;
+                case 5: this.Invoke(new EventHandler(Dole_vpravo_Click)); break;
+                case 6: this.Invoke(new EventHandler(Dole_Click)); break;
+                case 7: this.Invoke(new EventHandler(Dole_Click)); break;
+                case 8: this.Invoke(new EventHandler(Vlavo_Click)); break;
+                case 9: this.Invoke(new EventHandler(Vlavo_Click)); break;
+                case 10: this.Invoke(new EventHandler(Vlavo_Click)); break;
+                case 11: this.Invoke(new EventHandler(Dole_Click)); break;
+                case 12: this.Invoke(new EventHandler(Dole_vlavo_Click)); break;
+                case 13: this.Invoke(new EventHandler(Dole_vlavo_Click)); break;
+                case 14: this.Invoke(new EventHandler(Vlavo_Click)); break;
+                case 15: this.Invoke(new EventHandler(Vlavo_Click)); break;
+            }
+        }
+
+        #endregion
+        //--------------------------------------
+        #region robot control
+
         private void Hore_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "1";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
         
         private void Hore_vpravo_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "2";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
         
         private void Vpravo_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "3";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
       
         private void Dole_vpravo_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "4";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
        
         private void Dole_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "5";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
         
         private void Dole_vlavo_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "6";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
         
         private void Vlavo_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "7";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
         
         private void Hore_vlavo_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "8";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
         
         private void Stop_Click(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "smer";
             pomocny[1] = "2";
             pomocny[2] = "0";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
+            odosli_data_s_blokovanim(pomocny);
         }
         
         private void zmena_rychlosti(object sender, EventArgs e)
         {
-            Socket_aktualizacia.Enabled = false;
             string[] pomocny = new string[3];
             pomocny[0] = "rych";
             pomocny[1] = "2";
             pomocny[2] = rychlost_num.Value.ToString();
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
-        }
-        
-        #endregion
-        #region --------------------espeak---------------------------
-
-        private void precitaj_box_Click(object sender, EventArgs e)
-        {
-         //   robot_socket.precitaj_text(Easpeak_text.Text);
-
-        }
-        private void txttospeech_Click(object sender, EventArgs e)
-        {
-            otvor_txt.Filter = "Text (*.txt) |*.txt";
-            otvor_txt.FileName = "Vloz text na prehratie";
-            otvor_txt.ShowDialog();
-            if (otvor_txt.FileName != "Vloz text na prehratie")
-            {
-                StreamReader s = File.OpenText(otvor_txt.FileName);
-                Easpeak_text.Text = s.ReadToEnd();
-                if (Easpeak_text.Text.Length >= 1000) 
-                {
-                    MessageBox.Show("Problem viac ako 999 znakov");
-                }
-                else
-                {
-                //    robot_socket.precitaj_text(Easpeak_text.Text);
-                }
-            }
+            odosli_data_s_blokovanim(pomocny);
         }
         #endregion
-        //----------------------------------------------------------------
-
-        //-------------------------------------- 
-        private void Kick_button_Click(object sender, EventArgs e)
-        {
-            Socket_aktualizacia.Enabled = false;
-            string[] pomocny = new string[2];
-            pomocny[0] = "kick";
-            pomocny[1] = "1";
-            robot_socket.gafuso_send_array(pomocny);
-            System.Threading.Thread.Sleep(500);
-            Socket_aktualizacia.Enabled = true;
-        }
-        
-        private void LED_vyp_Click(object sender, EventArgs e)
-        {
-            Socket_aktualizacia.Enabled = false;
-            string[] pomocny = new string[2];
-            pomocny[0] = "LED0";
-            pomocny[1] = "1";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
-        }
-       
-        private void LED_zap_Click(object sender, EventArgs e)
-        {
-            Socket_aktualizacia.Enabled = false;
-            string[] pomocny = new string[2];
-            pomocny[0] = "LED1";
-            pomocny[1] = "1";
-            robot_socket.gafuso_send_array(pomocny);
-            Socket_aktualizacia.Enabled = true;
-        }
-        //-------------------------------------- 
+        //--------------------------------------
         #region nahravanie
         int poc;
        
@@ -406,7 +429,7 @@ namespace robot
         
         int[,] data_save = new int[3001, 20];
         
-        jpgtogif.save_to_gif kamera_rec = new jpgtogif.save_to_gif();
+        gif.gif kamera_rec = new gif.gif();
        
         private void rec_timer_Tick(object sender, EventArgs e)
         {
@@ -452,6 +475,7 @@ namespace robot
         {
             kamera.riadenie = 0;
             rec_timer.Enabled = true;
+            live_button.Enabled = true;
         }
         
         private void next_button_Click(object sender, EventArgs e)
@@ -544,7 +568,7 @@ namespace robot
             save_stream.Filter = "Stream (*.stream) |*.stream";
             save_stream.FileName = "Uloz stream";
             save_stream.ShowDialog();
-            kamera_rec.bitmaps_to_gif(save_stream.FileName.Substring(0, save_stream.FileName.Length - 6) + "gif", kamera_rec.images );
+          //  kamera_rec.bitmaps_to_gif(save_stream.FileName.Substring(0, save_stream.FileName.Length - 6) + "gif", kamera_rec.images );
             if (save_stream.FileName != "Uloz stream")
             {
                 TextWriter stream_file = new StreamWriter(save_stream.FileName);
@@ -585,6 +609,17 @@ namespace robot
                 }
                 stream_file.Close();
             }
+            kamera_rec.gif_to_images(otvor_stream.FileName.Substring(0, otvor_stream.FileName.Length - 6) + "gif");
+            button1.Enabled = true;
+            back_button.Enabled = true;
+            timeline.Enabled = true;
+            next_button.Enabled = true;
+            pause_button.Enabled = true;
+            play_button.Enabled = true;
+            group_compass.Enabled = true;
+            group_graphic_position.Enabled = true;
+            group_IR_Sensors.Enabled = true;
+            Graficka_aktualizacia.Enabled = true;
         }
         
         #endregion
@@ -713,149 +748,81 @@ namespace robot
         }
         #endregion
         //-------------------------------------- 
-        private void gotoweb(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://www.prianicslovakia.tym.sk");
-        }
-     
-        Gamepad gamepad = new Gamepad();
-        
-        string last = "100";
-        
-        private void Gamepad_timer_Tick(object sender, EventArgs e)
-        {
-            string now = gamepad.calc_gamepad(32511, 32767, 8);
-            if (now != last)
-            {
-                switch (now)
-                {
-                    case "z_t_1":   if (rychlost_num.Value - 5 >= rychlost_num.Minimum)
-                                    rychlost_num.Value = rychlost_num.Value - 5; break;
-                    case "z_t_2":
-                                    this.Invoke(new EventHandler(Stop_Click));
-                                    this.Invoke(new EventHandler(Kick_button_Click));
-                                    System.Threading.Thread.Sleep(300); break;
-                    case "z_t_3":   this.Invoke(new EventHandler(LED_zap_Click)); break;
-                    case "z_t_4":   if (rychlost_num.Value + 5 <= rychlost_num.Maximum)
-                                    rychlost_num.Value = rychlost_num.Value + 5;    break;
-                    case "z_t_5":                                                   break;
-                    case "z_t_6":   this.Invoke(new EventHandler(LED_vyp_Click));          break;
-                    case "z_t_7":   string[] pomocny = {"smer","2","9"};
-                                    robot_socket.gafuso_send_array(pomocny);        break;
-                    case "z_t_8":   string[] pomocny1 = {"smer","2","10"};
-                                    robot_socket.gafuso_send_array(pomocny1);       break;
-                    default:        string[] pomocny2 = {"smer","2",now};
-                                    robot_socket.gafuso_send_array(pomocny2);       break;
-                }
-                if (now != "z_t_1" & now != "z_t_4" & now != "z_t_5")
-                {
-                    last = now;
-                    Socket_aktualizacia.Enabled = true;
-                }
-                else if (now == "z_t_5")
-                {
-                    Socket_aktualizacia.Enabled = false;
-                }
-            }
-        }
 
-        #region kamera_panel
-        
-        kamera_panel kamera = new kamera_panel();
-        
-        private void kamera_start_Click(object sender, EventArgs e)
+        private void nahodne_button_Click(object sender, EventArgs e)
         {
-            kamera.open_camera(textBox_IP.Text);
-            if (kamera.IsDisposed)
-                kamera = new kamera_panel();      
-            kamera.Text = "Kamera_original";
-            kamera.Show();
-        }
-
-        #endregion
-
-        string iftrue(bool a)
-        {
-            if (a == true)
-                return "1";
-            else
-                return "0";
-        }
-
-        private void zmena_control(object sender, EventArgs e)
-            {
-                if (radio_gamepad.Checked == true)
-                {
-                    gamepad.Pripoj_Joystick();
-                    Gamepad_timer.Enabled = true;
-                    group_robot_control.Enabled = false;
-                }
-                else
-                {
-                    Gamepad_timer.Enabled = false;
-                    group_robot_control.Enabled = true;
-                }
-            }
-      
-        Image velkost_picture_box(PictureBox old,int posun)
-            {
-                return new Bitmap(old.Image, old.Width-posun, old.Height-posun); 
-            }
-        
-        Image velkost_button(Button old, int posun)
-            {
-                return new Bitmap(old.Image, old.Width - posun, old.Height - posun);
-            }
-       
-        private void nahodne_Tick(object sender, EventArgs e)
-        {
-            prijate_data++;
-            System.Random a = new Random();
-            for (int i = 0; i < 8; i++)
-            {
-                data[i] = a.Next(0, 255); 
-            }
-            
-            data[8] = a.Next(0, 18);
-            data[9] = a.Next(0, 180);
-            data[10] = a.Next(0, 1);
-            this.Invoke(new EventHandler(Vypis_hodnoty));       
-        }
-
-        private void start_Click(object sender, EventArgs e)
-        {
-            Socket_aktualizacia.Enabled = false;
-            //zap aut
-            Socket_aktualizacia.Enabled = true;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Socket_aktualizacia.Enabled = false;
-            //vyp aut
-            Socket_aktualizacia.Enabled = true;
-        }
-
-        private void start_test_Click(object sender, EventArgs e)
-        {
-            //group enabled------------------------
-            group_automotion.Enabled = true;
             group_compass.Enabled = true;
             group_graphic_position.Enabled = true;
             group_IR_Sensors.Enabled = true;
             group_kicker.Enabled = true;
-            group_robot_control.Enabled = true;
-            group_led.Enabled = true;
-            //-------------------------------------
             nahodne.Enabled = true;
             Graficka_aktualizacia.Enabled = true;
-
+        }
+       
+        kamera_panel kamera = new kamera_panel();
+        private void kamera_start_Click(object sender, EventArgs e)
+        {
+            kamera.Ip_adress_kamera = textBox_IP.Text;
+            if (kamera.IsDisposed)
+                kamera = new kamera_panel();
+            kamera.Text = "Kamera_original";
+            kamera.Show();
         }
 
+        private void start_automotion_Click(object sender, EventArgs e)
+        {
+            automatic.Enabled = true;
+        }
 
+        private void stop_automotion_Click(object sender, EventArgs e)
+        {
+            automatic.Enabled = false;
+            this.Invoke(new EventHandler(Stop_Click));
+        }
 
+        private void LED_zap_Click(object sender, EventArgs e)
+        {
+            string[] pomocny = new string[2];
+            pomocny[0] = "LED1";
+            pomocny[1] = "1";
+            odosli_data_s_blokovanim(pomocny);
+        }
 
+        private void LED_vyp_Click(object sender, EventArgs e)
+        {
+            string[] pomocny = new string[2];
+            pomocny[0] = "LED0";
+            pomocny[1] = "1";
+            odosli_data_s_blokovanim(pomocny);
+        }
 
+        private void Kick_button_Click(object sender, EventArgs e)
+        {
+            string[] pomocny = new string[2];
+            pomocny[0] = "kick";
+            pomocny[1] = "1";
+            odosli_data_s_blokovanim(pomocny);
+        }
+        
+        private void zmena_control(object sender, EventArgs e)
+        {
+            if (radio_gamepad.Checked == true)
+            {
+                gamepad.Pripoj_Joystick();
+                Gamepad_timer.Enabled = true;
+                group_robot_control.Enabled = false;
+            }
+            else
+            {
+                Gamepad_timer.Enabled = false;
+                group_robot_control.Enabled = true;
+            }
+        }
+  
+        private void gotoweb(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.prianicslovakia.tym.sk");
+        }
 
-    }
+ }
 }

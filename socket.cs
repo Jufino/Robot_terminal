@@ -198,7 +198,6 @@ namespace socket_com
         int pictureheight = 160;
         Bitmap picture;
 
-        //nieje vyskusane
         public Bitmap recv_picture()
         {
             try

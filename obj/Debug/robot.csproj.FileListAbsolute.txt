@@ -152,3 +152,13 @@ C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.csproj.GenerateResource.
 C:\Users\Jufo\git-jufino\Robot_terminal\bin\Debug\robot.exe
 C:\Users\Jufo\git-jufino\Robot_terminal\bin\Debug\robot.pdb
 C:\Users\Jufo\git-jufino\Robot_terminal\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\robot.exe
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\robot.pdb
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\bin\Debug\robot.exe
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\bin\Debug\robot.pdb
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\robot.kamera_panel.resources
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\robot.panel.resources
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\robot.graf_panel.resources
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\robot.Properties.Resources.resources
+C:\Users\Jufo\Documents\github-jufino\Robot_terminal\obj\Debug\robot.csproj.GenerateResource.Cache

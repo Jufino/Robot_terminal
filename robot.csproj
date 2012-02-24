@@ -108,7 +108,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="save_to_gif.cs" />
+    <Compile Include="gif.cs" />
     <Compile Include="socket.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -67,8 +67,6 @@ namespace robot
             this.Kick_sens = new System.Windows.Forms.RadioButton();
             this.Kick_button = new System.Windows.Forms.Button();
             this.group_robot_control = new System.Windows.Forms.GroupBox();
-            this.radio_gamepad = new System.Windows.Forms.RadioButton();
-            this.radio_button = new System.Windows.Forms.RadioButton();
             this.rychlost_num = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.Dole_vlavo = new System.Windows.Forms.Button();
@@ -80,12 +78,14 @@ namespace robot
             this.Stop = new System.Windows.Forms.Button();
             this.Hore_vpravo = new System.Windows.Forms.Button();
             this.Hore = new System.Windows.Forms.Button();
+            this.radio_gamepad = new System.Windows.Forms.RadioButton();
+            this.radio_button = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.group_automotion = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.start = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.group_automotion = new System.Windows.Forms.GroupBox();
+            this.start_automotion = new System.Windows.Forms.Button();
+            this.stop_automotion = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -93,14 +93,6 @@ namespace robot
             this.Close_socket = new System.Windows.Forms.Button();
             this.Open_socket = new System.Windows.Forms.Button();
             this.textBox_IP = new System.Windows.Forms.TextBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.group_led = new System.Windows.Forms.GroupBox();
-            this.LED_vyp = new System.Windows.Forms.Button();
-            this.LED_zap = new System.Windows.Forms.Button();
-            this.group_espeak = new System.Windows.Forms.GroupBox();
-            this.txttospeech = new System.Windows.Forms.Button();
-            this.Easpeak_text = new System.Windows.Forms.RichTextBox();
-            this.precitaj_box = new System.Windows.Forms.Button();
             this.status = new System.Windows.Forms.ToolStripStatusLabel();
             this.Socket_aktualizacia = new System.Windows.Forms.Timer(this.components);
             this.otvor_txt = new System.Windows.Forms.OpenFileDialog();
@@ -121,6 +113,7 @@ namespace robot
             this.save_stream = new System.Windows.Forms.SaveFileDialog();
             this.Gamepad_timer = new System.Windows.Forms.Timer(this.components);
             this.nahodne = new System.Windows.Forms.Timer(this.components);
+            this.automatic = new System.Windows.Forms.Timer(this.components);
             this.group_IR_Sensors.SuspendLayout();
             this.group_compass.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Kompas_graficky)).BeginInit();
@@ -135,15 +128,11 @@ namespace robot
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.group_led.SuspendLayout();
-            this.group_espeak.SuspendLayout();
             this.timeline_group.SuspendLayout();
             this.SuspendLayout();
             // 
             // Graficka_aktualizacia
             // 
-            this.Graficka_aktualizacia.Enabled = true;
             this.Graficka_aktualizacia.Interval = 1;
             this.Graficka_aktualizacia.Tick += new System.EventHandler(this.Graficka_aktualizacia_Tick);
             // 
@@ -170,6 +159,7 @@ namespace robot
             this.group_IR_Sensors.Controls.Add(this.Sens3);
             this.group_IR_Sensors.Controls.Add(this.Sens2);
             this.group_IR_Sensors.Controls.Add(this.Sens1);
+            this.group_IR_Sensors.Enabled = false;
             this.group_IR_Sensors.Location = new System.Drawing.Point(130, 13);
             this.group_IR_Sensors.Name = "group_IR_Sensors";
             this.group_IR_Sensors.Size = new System.Drawing.Size(129, 148);
@@ -277,6 +267,7 @@ namespace robot
             // 
             this.group_compass.Controls.Add(this.Kompas_8bit_box);
             this.group_compass.Controls.Add(this.Kompas_graficky);
+            this.group_compass.Enabled = false;
             this.group_compass.Location = new System.Drawing.Point(94, 168);
             this.group_compass.Name = "group_compass";
             this.group_compass.Size = new System.Drawing.Size(166, 179);
@@ -323,7 +314,6 @@ namespace robot
             // 
             this.Sens_1.AutoSize = true;
             this.Sens_1.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_1.Enabled = false;
             this.Sens_1.Location = new System.Drawing.Point(198, 32);
             this.Sens_1.Name = "Sens_1";
             this.Sens_1.Size = new System.Drawing.Size(14, 13);
@@ -351,7 +341,8 @@ namespace robot
             this.group_graphic_position.Controls.Add(this.Sens_2);
             this.group_graphic_position.Controls.Add(this.Sens_1);
             this.group_graphic_position.Controls.Add(this.robot_obr);
-            this.group_graphic_position.Location = new System.Drawing.Point(266, 14);
+            this.group_graphic_position.Enabled = false;
+            this.group_graphic_position.Location = new System.Drawing.Point(273, 13);
             this.group_graphic_position.Name = "group_graphic_position";
             this.group_graphic_position.Size = new System.Drawing.Size(296, 333);
             this.group_graphic_position.TabIndex = 8;
@@ -362,7 +353,6 @@ namespace robot
             // 
             this.Sens_0.AutoSize = true;
             this.Sens_0.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_0.Enabled = false;
             this.Sens_0.Location = new System.Drawing.Point(142, 58);
             this.Sens_0.Name = "Sens_0";
             this.Sens_0.Size = new System.Drawing.Size(14, 13);
@@ -374,7 +364,6 @@ namespace robot
             // 
             this.Sens_11.AutoSize = true;
             this.Sens_11.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_11.Enabled = false;
             this.Sens_11.Location = new System.Drawing.Point(26, 216);
             this.Sens_11.Name = "Sens_11";
             this.Sens_11.Size = new System.Drawing.Size(14, 13);
@@ -386,7 +375,6 @@ namespace robot
             // 
             this.Sens_10.AutoSize = true;
             this.Sens_10.BackColor = System.Drawing.Color.White;
-            this.Sens_10.Enabled = false;
             this.Sens_10.Location = new System.Drawing.Point(51, 254);
             this.Sens_10.Name = "Sens_10";
             this.Sens_10.Size = new System.Drawing.Size(14, 13);
@@ -398,7 +386,6 @@ namespace robot
             // 
             this.Sens_9.AutoSize = true;
             this.Sens_9.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_9.Enabled = false;
             this.Sens_9.Location = new System.Drawing.Point(84, 280);
             this.Sens_9.Name = "Sens_9";
             this.Sens_9.Size = new System.Drawing.Size(14, 13);
@@ -410,7 +397,6 @@ namespace robot
             // 
             this.Sens_8.AutoSize = true;
             this.Sens_8.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_8.Enabled = false;
             this.Sens_8.Location = new System.Drawing.Point(142, 295);
             this.Sens_8.Name = "Sens_8";
             this.Sens_8.Size = new System.Drawing.Size(14, 13);
@@ -422,7 +408,6 @@ namespace robot
             // 
             this.Sens_4.AutoSize = true;
             this.Sens_4.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_4.Enabled = false;
             this.Sens_4.Location = new System.Drawing.Point(271, 154);
             this.Sens_4.Name = "Sens_4";
             this.Sens_4.Size = new System.Drawing.Size(14, 13);
@@ -434,7 +419,6 @@ namespace robot
             // 
             this.Sens_12.AutoSize = true;
             this.Sens_12.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_12.Enabled = false;
             this.Sens_12.Location = new System.Drawing.Point(13, 154);
             this.Sens_12.Name = "Sens_12";
             this.Sens_12.Size = new System.Drawing.Size(14, 13);
@@ -446,7 +430,6 @@ namespace robot
             // 
             this.Sens_13.AutoSize = true;
             this.Sens_13.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_13.Enabled = false;
             this.Sens_13.Location = new System.Drawing.Point(26, 93);
             this.Sens_13.Name = "Sens_13";
             this.Sens_13.Size = new System.Drawing.Size(14, 13);
@@ -458,7 +441,6 @@ namespace robot
             // 
             this.Sens_15.AutoSize = true;
             this.Sens_15.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_15.Enabled = false;
             this.Sens_15.Location = new System.Drawing.Point(84, 32);
             this.Sens_15.Name = "Sens_15";
             this.Sens_15.Size = new System.Drawing.Size(14, 13);
@@ -470,7 +452,6 @@ namespace robot
             // 
             this.Sens_14.AutoSize = true;
             this.Sens_14.BackColor = System.Drawing.Color.White;
-            this.Sens_14.Enabled = false;
             this.Sens_14.Location = new System.Drawing.Point(50, 56);
             this.Sens_14.Name = "Sens_14";
             this.Sens_14.Size = new System.Drawing.Size(14, 13);
@@ -482,7 +463,6 @@ namespace robot
             // 
             this.Sens_7.AutoSize = true;
             this.Sens_7.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_7.Enabled = false;
             this.Sens_7.Location = new System.Drawing.Point(198, 280);
             this.Sens_7.Name = "Sens_7";
             this.Sens_7.Size = new System.Drawing.Size(14, 13);
@@ -494,7 +474,6 @@ namespace robot
             // 
             this.Sens_5.AutoSize = true;
             this.Sens_5.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_5.Enabled = false;
             this.Sens_5.Location = new System.Drawing.Point(256, 216);
             this.Sens_5.Name = "Sens_5";
             this.Sens_5.Size = new System.Drawing.Size(14, 13);
@@ -506,7 +485,6 @@ namespace robot
             // 
             this.Sens_6.AutoSize = true;
             this.Sens_6.BackColor = System.Drawing.Color.White;
-            this.Sens_6.Enabled = false;
             this.Sens_6.Location = new System.Drawing.Point(232, 251);
             this.Sens_6.Name = "Sens_6";
             this.Sens_6.Size = new System.Drawing.Size(14, 13);
@@ -518,7 +496,6 @@ namespace robot
             // 
             this.Sens_3.AutoSize = true;
             this.Sens_3.BackColor = System.Drawing.Color.DimGray;
-            this.Sens_3.Enabled = false;
             this.Sens_3.Location = new System.Drawing.Point(256, 93);
             this.Sens_3.Name = "Sens_3";
             this.Sens_3.Size = new System.Drawing.Size(14, 13);
@@ -530,7 +507,6 @@ namespace robot
             // 
             this.Sens_2.AutoSize = true;
             this.Sens_2.BackColor = System.Drawing.Color.White;
-            this.Sens_2.Enabled = false;
             this.Sens_2.Location = new System.Drawing.Point(235, 56);
             this.Sens_2.Name = "Sens_2";
             this.Sens_2.Size = new System.Drawing.Size(14, 13);
@@ -551,6 +527,7 @@ namespace robot
             // 
             this.group_kicker.Controls.Add(this.Kick_sens);
             this.group_kicker.Controls.Add(this.Kick_button);
+            this.group_kicker.Enabled = false;
             this.group_kicker.Location = new System.Drawing.Point(6, 168);
             this.group_kicker.Name = "group_kicker";
             this.group_kicker.Size = new System.Drawing.Size(83, 69);
@@ -584,8 +561,6 @@ namespace robot
             // 
             // group_robot_control
             // 
-            this.group_robot_control.Controls.Add(this.radio_gamepad);
-            this.group_robot_control.Controls.Add(this.radio_button);
             this.group_robot_control.Controls.Add(this.rychlost_num);
             this.group_robot_control.Controls.Add(this.label1);
             this.group_robot_control.Controls.Add(this.Dole_vlavo);
@@ -597,38 +572,13 @@ namespace robot
             this.group_robot_control.Controls.Add(this.Stop);
             this.group_robot_control.Controls.Add(this.Hore_vpravo);
             this.group_robot_control.Controls.Add(this.Hore);
-            this.group_robot_control.Location = new System.Drawing.Point(568, 13);
+            this.group_robot_control.Enabled = false;
+            this.group_robot_control.Location = new System.Drawing.Point(582, 14);
             this.group_robot_control.Name = "group_robot_control";
-            this.group_robot_control.Size = new System.Drawing.Size(159, 216);
+            this.group_robot_control.Size = new System.Drawing.Size(159, 202);
             this.group_robot_control.TabIndex = 10;
             this.group_robot_control.TabStop = false;
             this.group_robot_control.Text = "Robot controls";
-            // 
-            // radio_gamepad
-            // 
-            this.radio_gamepad.AutoSize = true;
-            this.radio_gamepad.Location = new System.Drawing.Point(91, 196);
-            this.radio_gamepad.Margin = new System.Windows.Forms.Padding(2);
-            this.radio_gamepad.Name = "radio_gamepad";
-            this.radio_gamepad.Size = new System.Drawing.Size(71, 17);
-            this.radio_gamepad.TabIndex = 4;
-            this.radio_gamepad.Text = "Gamepad";
-            this.radio_gamepad.UseVisualStyleBackColor = true;
-            this.radio_gamepad.CheckedChanged += new System.EventHandler(this.zmena_control);
-            // 
-            // radio_button
-            // 
-            this.radio_button.AutoSize = true;
-            this.radio_button.Checked = true;
-            this.radio_button.Location = new System.Drawing.Point(6, 196);
-            this.radio_button.Margin = new System.Windows.Forms.Padding(2);
-            this.radio_button.Name = "radio_button";
-            this.radio_button.Size = new System.Drawing.Size(61, 17);
-            this.radio_button.TabIndex = 4;
-            this.radio_button.TabStop = true;
-            this.radio_button.Text = "Buttons";
-            this.radio_button.UseVisualStyleBackColor = true;
-            this.radio_button.CheckedChanged += new System.EventHandler(this.zmena_control);
             // 
             // rychlost_num
             // 
@@ -749,19 +699,48 @@ namespace robot
             this.Hore.UseVisualStyleBackColor = true;
             this.Hore.Click += new System.EventHandler(this.Hore_Click);
             // 
+            // radio_gamepad
+            // 
+            this.radio_gamepad.AutoSize = true;
+            this.radio_gamepad.Enabled = false;
+            this.radio_gamepad.Location = new System.Drawing.Point(666, 220);
+            this.radio_gamepad.Margin = new System.Windows.Forms.Padding(2);
+            this.radio_gamepad.Name = "radio_gamepad";
+            this.radio_gamepad.Size = new System.Drawing.Size(71, 17);
+            this.radio_gamepad.TabIndex = 4;
+            this.radio_gamepad.Text = "Gamepad";
+            this.radio_gamepad.UseVisualStyleBackColor = true;
+            this.radio_gamepad.CheckedChanged += new System.EventHandler(this.zmena_control);
+            // 
+            // radio_button
+            // 
+            this.radio_button.AutoSize = true;
+            this.radio_button.Checked = true;
+            this.radio_button.Enabled = false;
+            this.radio_button.Location = new System.Drawing.Point(588, 220);
+            this.radio_button.Margin = new System.Windows.Forms.Padding(2);
+            this.radio_button.Name = "radio_button";
+            this.radio_button.Size = new System.Drawing.Size(61, 17);
+            this.radio_button.TabIndex = 4;
+            this.radio_button.TabStop = true;
+            this.radio_button.Text = "Buttons";
+            this.radio_button.UseVisualStyleBackColor = true;
+            this.radio_button.CheckedChanged += new System.EventHandler(this.zmena_control);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(7, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(756, 384);
+            this.tabControl1.Size = new System.Drawing.Size(764, 384);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.radio_button);
+            this.tabPage1.Controls.Add(this.radio_gamepad);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.group_automotion);
             this.tabPage1.Controls.Add(this.pictureBox1);
@@ -774,26 +753,14 @@ namespace robot
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(748, 358);
+            this.tabPage1.Size = new System.Drawing.Size(756, 358);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // group_automotion
-            // 
-            this.group_automotion.Controls.Add(this.start);
-            this.group_automotion.Controls.Add(this.button3);
-            this.group_automotion.Location = new System.Drawing.Point(6, 243);
-            this.group_automotion.Margin = new System.Windows.Forms.Padding(2);
-            this.group_automotion.Name = "group_automotion";
-            this.group_automotion.Padding = new System.Windows.Forms.Padding(2);
-            this.group_automotion.Size = new System.Drawing.Size(82, 79);
-            this.group_automotion.TabIndex = 21;
-            this.group_automotion.TabStop = false;
-            this.group_automotion.Text = "AutoMotion";
-            // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(5, 326);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
@@ -803,35 +770,49 @@ namespace robot
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.kamera_start_Click);
             // 
-            // start
+            // group_automotion
             // 
-            this.start.Location = new System.Drawing.Point(8, 16);
-            this.start.Margin = new System.Windows.Forms.Padding(2);
-            this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(63, 21);
-            this.start.TabIndex = 1;
-            this.start.Text = "Start";
-            this.start.UseVisualStyleBackColor = true;
-            this.start.Click += new System.EventHandler(this.start_Click);
+            this.group_automotion.Controls.Add(this.start_automotion);
+            this.group_automotion.Controls.Add(this.stop_automotion);
+            this.group_automotion.Enabled = false;
+            this.group_automotion.Location = new System.Drawing.Point(6, 243);
+            this.group_automotion.Margin = new System.Windows.Forms.Padding(2);
+            this.group_automotion.Name = "group_automotion";
+            this.group_automotion.Padding = new System.Windows.Forms.Padding(2);
+            this.group_automotion.Size = new System.Drawing.Size(82, 79);
+            this.group_automotion.TabIndex = 21;
+            this.group_automotion.TabStop = false;
+            this.group_automotion.Text = "AutoMotion";
             // 
-            // button3
+            // start_automotion
             // 
-            this.button3.Location = new System.Drawing.Point(8, 44);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(63, 21);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Stop";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.start_automotion.Location = new System.Drawing.Point(8, 16);
+            this.start_automotion.Margin = new System.Windows.Forms.Padding(2);
+            this.start_automotion.Name = "start_automotion";
+            this.start_automotion.Size = new System.Drawing.Size(63, 21);
+            this.start_automotion.TabIndex = 1;
+            this.start_automotion.Text = "Start";
+            this.start_automotion.UseVisualStyleBackColor = true;
+            this.start_automotion.Click += new System.EventHandler(this.start_automotion_Click);
+            // 
+            // stop_automotion
+            // 
+            this.stop_automotion.Location = new System.Drawing.Point(8, 44);
+            this.stop_automotion.Margin = new System.Windows.Forms.Padding(2);
+            this.stop_automotion.Name = "stop_automotion";
+            this.stop_automotion.Size = new System.Drawing.Size(63, 21);
+            this.stop_automotion.TabIndex = 1;
+            this.stop_automotion.Text = "Stop";
+            this.stop_automotion.UseVisualStyleBackColor = true;
+            this.stop_automotion.Click += new System.EventHandler(this.stop_automotion_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::robot.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(568, 243);
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(574, 243);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(159, 88);
+            this.pictureBox1.Size = new System.Drawing.Size(167, 87);
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.gotoweb);
@@ -869,7 +850,7 @@ namespace robot
             this.nahodne_button.TabIndex = 2;
             this.nahodne_button.Text = "Test app";
             this.nahodne_button.UseVisualStyleBackColor = true;
-            this.nahodne_button.Click += new System.EventHandler(this.start_test_Click);
+            this.nahodne_button.Click += new System.EventHandler(this.nahodne_button_Click);
             // 
             // Close_socket
             // 
@@ -903,102 +884,6 @@ namespace robot
             this.textBox_IP.TabIndex = 0;
             this.textBox_IP.Text = "192.168.0.2";
             // 
-            // tabPage5
-            // 
-            this.tabPage5.BackColor = System.Drawing.Color.White;
-            this.tabPage5.Controls.Add(this.group_led);
-            this.tabPage5.Controls.Add(this.group_espeak);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(748, 358);
-            this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Special functions";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // group_led
-            // 
-            this.group_led.Controls.Add(this.LED_vyp);
-            this.group_led.Controls.Add(this.LED_zap);
-            this.group_led.Location = new System.Drawing.Point(244, 2);
-            this.group_led.Margin = new System.Windows.Forms.Padding(2);
-            this.group_led.Name = "group_led";
-            this.group_led.Padding = new System.Windows.Forms.Padding(2);
-            this.group_led.Size = new System.Drawing.Size(86, 76);
-            this.group_led.TabIndex = 19;
-            this.group_led.TabStop = false;
-            this.group_led.Text = "LED";
-            // 
-            // LED_vyp
-            // 
-            this.LED_vyp.Location = new System.Drawing.Point(6, 45);
-            this.LED_vyp.Margin = new System.Windows.Forms.Padding(2);
-            this.LED_vyp.Name = "LED_vyp";
-            this.LED_vyp.Size = new System.Drawing.Size(72, 19);
-            this.LED_vyp.TabIndex = 11;
-            this.LED_vyp.Text = "Led off";
-            this.LED_vyp.UseVisualStyleBackColor = true;
-            this.LED_vyp.Click += new System.EventHandler(this.LED_vyp_Click);
-            // 
-            // LED_zap
-            // 
-            this.LED_zap.Location = new System.Drawing.Point(6, 15);
-            this.LED_zap.Margin = new System.Windows.Forms.Padding(2);
-            this.LED_zap.Name = "LED_zap";
-            this.LED_zap.Size = new System.Drawing.Size(72, 19);
-            this.LED_zap.TabIndex = 11;
-            this.LED_zap.Text = "Led on";
-            this.LED_zap.UseVisualStyleBackColor = true;
-            this.LED_zap.Click += new System.EventHandler(this.LED_zap_Click);
-            // 
-            // group_espeak
-            // 
-            this.group_espeak.Controls.Add(this.txttospeech);
-            this.group_espeak.Controls.Add(this.Easpeak_text);
-            this.group_espeak.Controls.Add(this.precitaj_box);
-            this.group_espeak.Location = new System.Drawing.Point(2, 2);
-            this.group_espeak.Margin = new System.Windows.Forms.Padding(2);
-            this.group_espeak.Name = "group_espeak";
-            this.group_espeak.Padding = new System.Windows.Forms.Padding(2);
-            this.group_espeak.Size = new System.Drawing.Size(238, 289);
-            this.group_espeak.TabIndex = 15;
-            this.group_espeak.TabStop = false;
-            this.group_espeak.Text = "Espeak";
-            // 
-            // txttospeech
-            // 
-            this.txttospeech.Enabled = false;
-            this.txttospeech.Location = new System.Drawing.Point(5, 252);
-            this.txttospeech.Margin = new System.Windows.Forms.Padding(2);
-            this.txttospeech.Name = "txttospeech";
-            this.txttospeech.Size = new System.Drawing.Size(108, 33);
-            this.txttospeech.TabIndex = 15;
-            this.txttospeech.Text = "Read from file";
-            this.txttospeech.UseVisualStyleBackColor = true;
-            this.txttospeech.Click += new System.EventHandler(this.txttospeech_Click);
-            // 
-            // Easpeak_text
-            // 
-            this.Easpeak_text.Enabled = false;
-            this.Easpeak_text.Location = new System.Drawing.Point(4, 17);
-            this.Easpeak_text.Margin = new System.Windows.Forms.Padding(2);
-            this.Easpeak_text.Name = "Easpeak_text";
-            this.Easpeak_text.Size = new System.Drawing.Size(230, 231);
-            this.Easpeak_text.TabIndex = 13;
-            this.Easpeak_text.Text = "";
-            // 
-            // precitaj_box
-            // 
-            this.precitaj_box.Enabled = false;
-            this.precitaj_box.Location = new System.Drawing.Point(161, 252);
-            this.precitaj_box.Margin = new System.Windows.Forms.Padding(2);
-            this.precitaj_box.Name = "precitaj_box";
-            this.precitaj_box.Size = new System.Drawing.Size(73, 32);
-            this.precitaj_box.TabIndex = 14;
-            this.precitaj_box.Text = "Read text";
-            this.precitaj_box.UseVisualStyleBackColor = true;
-            this.precitaj_box.Click += new System.EventHandler(this.precitaj_box_Click);
-            // 
             // status
             // 
             this.status.Name = "status";
@@ -1007,6 +892,7 @@ namespace robot
             // 
             // Socket_aktualizacia
             // 
+            this.Socket_aktualizacia.Interval = 80;
             this.Socket_aktualizacia.Tick += new System.EventHandler(this.Socket_aktualizacia_Tick);
             // 
             // otvor_txt
@@ -1015,6 +901,7 @@ namespace robot
             // 
             // timeline
             // 
+            this.timeline.Enabled = false;
             this.timeline.Location = new System.Drawing.Point(42, 17);
             this.timeline.Margin = new System.Windows.Forms.Padding(2);
             this.timeline.MarqueeAnimationSpeed = 1;
@@ -1051,7 +938,7 @@ namespace robot
             this.timeline_group.Margin = new System.Windows.Forms.Padding(2);
             this.timeline_group.Name = "timeline_group";
             this.timeline_group.Padding = new System.Windows.Forms.Padding(2);
-            this.timeline_group.Size = new System.Drawing.Size(755, 58);
+            this.timeline_group.Size = new System.Drawing.Size(764, 58);
             this.timeline_group.TabIndex = 12;
             this.timeline_group.TabStop = false;
             this.timeline_group.Text = "Time control";
@@ -1070,6 +957,7 @@ namespace robot
             // 
             // save_button
             // 
+            this.save_button.Enabled = false;
             this.save_button.Image = global::robot.Properties.Resources.stiahnut;
             this.save_button.Location = new System.Drawing.Point(622, 17);
             this.save_button.Margin = new System.Windows.Forms.Padding(2);
@@ -1081,6 +969,7 @@ namespace robot
             // 
             // back_button
             // 
+            this.back_button.Enabled = false;
             this.back_button.Image = global::robot.Properties.Resources.ee1;
             this.back_button.Location = new System.Drawing.Point(6, 17);
             this.back_button.Margin = new System.Windows.Forms.Padding(2);
@@ -1092,6 +981,7 @@ namespace robot
             // 
             // next_button
             // 
+            this.next_button.Enabled = false;
             this.next_button.Image = global::robot.Properties.Resources.ee;
             this.next_button.Location = new System.Drawing.Point(448, 17);
             this.next_button.Margin = new System.Windows.Forms.Padding(2);
@@ -1103,6 +993,7 @@ namespace robot
             // 
             // rec_button
             // 
+            this.rec_button.Enabled = false;
             this.rec_button.Image = global::robot.Properties.Resources.rr;
             this.rec_button.Location = new System.Drawing.Point(482, 17);
             this.rec_button.Margin = new System.Windows.Forms.Padding(2);
@@ -1114,6 +1005,7 @@ namespace robot
             // 
             // play_button
             // 
+            this.play_button.Enabled = false;
             this.play_button.Image = global::robot.Properties.Resources.mm;
             this.play_button.Location = new System.Drawing.Point(587, 17);
             this.play_button.Margin = new System.Windows.Forms.Padding(2);
@@ -1125,6 +1017,7 @@ namespace robot
             // 
             // pause_button
             // 
+            this.pause_button.Enabled = false;
             this.pause_button.Image = global::robot.Properties.Resources.pause;
             this.pause_button.Location = new System.Drawing.Point(551, 17);
             this.pause_button.Margin = new System.Windows.Forms.Padding(2);
@@ -1136,6 +1029,7 @@ namespace robot
             // 
             // live_button
             // 
+            this.live_button.Enabled = false;
             this.live_button.Image = global::robot.Properties.Resources.zelen;
             this.live_button.Location = new System.Drawing.Point(515, 17);
             this.live_button.Margin = new System.Windows.Forms.Padding(2);
@@ -1159,18 +1053,23 @@ namespace robot
             // 
             // Gamepad_timer
             // 
-            this.Gamepad_timer.Interval = 1;
+            this.Gamepad_timer.Interval = 40;
             this.Gamepad_timer.Tick += new System.EventHandler(this.Gamepad_timer_Tick);
             // 
             // nahodne
             // 
             this.nahodne.Tick += new System.EventHandler(this.nahodne_Tick);
             // 
+            // automatic
+            // 
+            this.automatic.Interval = 60;
+            this.automatic.Tick += new System.EventHandler(this.automatic_Tick);
+            // 
             // panel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 465);
+            this.ClientSize = new System.Drawing.Size(780, 465);
             this.Controls.Add(this.timeline_group);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1192,14 +1091,12 @@ namespace robot
             ((System.ComponentModel.ISupportInitialize)(this.rychlost_num)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.group_automotion.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.group_led.ResumeLayout(false);
-            this.group_espeak.ResumeLayout(false);
             this.timeline_group.ResumeLayout(false);
             this.timeline_group.PerformLayout();
             this.ResumeLayout(false);
@@ -1256,12 +1153,7 @@ namespace robot
         private System.Windows.Forms.TextBox Kompas_8bit_box;
         private System.Windows.Forms.Timer Socket_aktualizacia;
         private System.Windows.Forms.NumericUpDown rychlost_num;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.GroupBox group_espeak;
-        private System.Windows.Forms.RichTextBox Easpeak_text;
-        private System.Windows.Forms.Button precitaj_box;
         private System.Windows.Forms.OpenFileDialog otvor_txt;
-        private System.Windows.Forms.Button txttospeech;
         private System.Windows.Forms.RadioButton Kick_sens;
         private System.Windows.Forms.Button Kick_button;
         private System.Windows.Forms.ProgressBar timeline;
@@ -1292,13 +1184,11 @@ namespace robot
         private System.Windows.Forms.PictureBox robot_obr;
         private System.Windows.Forms.Timer nahodne;
         private System.Windows.Forms.GroupBox group_automotion;
-        private System.Windows.Forms.Button start;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.GroupBox group_led;
-        private System.Windows.Forms.Button LED_vyp;
-        private System.Windows.Forms.Button LED_zap;
+        private System.Windows.Forms.Button start_automotion;
+        private System.Windows.Forms.Button stop_automotion;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button nahodne_button;
+        private System.Windows.Forms.Timer automatic;
     }
 }
 

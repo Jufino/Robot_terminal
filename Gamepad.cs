@@ -30,10 +30,10 @@ namespace robot
         }
         public int[] AxisXY()
         {
-            int[] pomocny = new int[2];
-            pomocny[0] = _gamepad.CurrentJoystickState.X;
-            pomocny[1] = _gamepad.CurrentJoystickState.Y;
-            return pomocny;
+                int[] pomocny = new int[2];
+                pomocny[0] = _gamepad.CurrentJoystickState.X;
+                pomocny[1] = _gamepad.CurrentJoystickState.Y;
+                return pomocny;
         }
         public bool IsConnected()
         {
@@ -78,22 +78,28 @@ namespace robot
         }
         public string calc_gamepad(int calibrate, int calibrate0, int num_button)
         {
-            int[] pomocny = AxisXY();
-            byte[] pomocny_tlacitka = Tlacitka();
-            int osx = prevod_osi(pomocny[0], calibrate, calibrate0);
-            int osy = prevod_osi(pomocny[1], calibrate, calibrate0);
-            bool all_tx_status = false;
-            string zatlacene_tlacitko = "";
-            for (int x = 0; x != num_button; x++)
+            try
             {
-                if (radio_status(pomocny_tlacitka[x]) == true)
+                int[] pomocny = AxisXY();
+                byte[] pomocny_tlacitka = Tlacitka();
+                int osx = prevod_osi(pomocny[0], calibrate, calibrate0);
+                int osy = prevod_osi(pomocny[1], calibrate, calibrate0);
+                bool all_tx_status = false;
+                string zatlacene_tlacitko = "";
+                for (int x = 0; x != num_button; x++)
                 {
-                    all_tx_status = true;
-                    zatlacene_tlacitko = (x + 1).ToString();
+                    if (radio_status(pomocny_tlacitka[x]) == true)
+                    {
+                        all_tx_status = true;
+                        zatlacene_tlacitko = (x + 1).ToString();
+                    }
                 }
+                if (all_tx_status == false) return prepocet_smer(osx, osy);
+                else return "z_t_" + zatlacene_tlacitko;
             }
-            if (all_tx_status == false) return prepocet_smer(osx, osy);
-            else return "z_t_" + zatlacene_tlacitko;
+            catch{
+                return "error";
+            }
         }
     }
 }
