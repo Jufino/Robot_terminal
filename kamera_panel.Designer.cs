@@ -46,7 +46,7 @@
             // 
             // kamera_timer
             // 
-            this.kamera_timer.Interval = 40;
+            this.kamera_timer.Interval = 50;
             this.kamera_timer.Tick += new System.EventHandler(this.kamera_Tick);
             // 
             // kamera_panel

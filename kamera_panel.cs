@@ -24,23 +24,25 @@ namespace robot
 
         private void kamera_Tick(object sender, EventArgs e)
         {
-            pictureBox1.Size = this.Size;
-            kamera.picture_width = pictureBox1.Size.Width-40;
-            kamera.picture_height = pictureBox1.Size.Height-60;
-            kamera.gafuso_send_data("img");
-            obrazok = kamera.recv_picture(); 
+            kamera_timer.Enabled = false;
+            if (riadenie_povel == 0)
+            {
+                kamera.gafuso_send_data("img");
+                obrazok = kamera.recv_picture();
+            }
             pictureBox1.Image = obrazok;
+            kamera_timer.Enabled = true;
         }
-        
+     
         public Image aktual_picture
         {
             get
             {
-                return pictureBox1.Image;
+                return obrazok;
             }
             set
             {
-                pictureBox1.Image = value;
+                obrazok = value;
             }
         }
 
@@ -66,8 +68,10 @@ namespace robot
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             kamera.socket_open(ip_kamera, "1212");
-            kamera.receive_timeout = 500;
             kamera_timer.Enabled = true;
+            pictureBox1.Size = this.Size;
+            kamera.picture_width = pictureBox1.Size.Width - 40;
+            kamera.picture_height = pictureBox1.Size.Height - 60;
         }
         public string Ip_adress_kamera
         {

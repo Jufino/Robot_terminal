@@ -760,7 +760,6 @@ namespace robot
             // 
             // button1
             // 
-            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(5, 326);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
@@ -892,7 +891,6 @@ namespace robot
             // 
             // Socket_aktualizacia
             // 
-            this.Socket_aktualizacia.Interval = 80;
             this.Socket_aktualizacia.Tick += new System.EventHandler(this.Socket_aktualizacia_Tick);
             // 
             // otvor_txt

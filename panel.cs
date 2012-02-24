@@ -68,6 +68,7 @@ namespace robot
         {
             if (robot_socket.socket_open(textBox_IP.Text, "1213") == true)
             {
+                robot_socket.gafuso_send_data("reset");
                 string[] pomocny = { "smer", "2", "0" };
                 odosli_data_s_blokovanim(pomocny);
                 string[] pomocnyx = { "rych", "2", "200" };
@@ -80,7 +81,6 @@ namespace robot
                 group_IR_Sensors.Enabled = true;
                 group_kicker.Enabled = true;
                 group_robot_control.Enabled = true;
-                button1.Enabled = true;
                 live_button.Enabled = true;
                 Open_socket.Enabled = false;
                 Close_socket.Enabled = true;
@@ -217,16 +217,24 @@ namespace robot
         {
             blok = 1;
             string[] pomocny = { "data", "11" };
-            robot_socket.receive_timeout = 10;
+            robot_socket.receive_timeout = 1000;
             robot_socket.gafuso_send_array(pomocny);
-            try
+            string[] xdata = robot_socket.gafuso_recv_array();
+            if (xdata != null)
             {
-                string[] xdata = robot_socket.gafuso_recv_array();
+                for (int x = 0; x != xdata.Length; x++)
+                {
+                    data[x] = Convert.ToInt16(xdata[x]);
+                }
                 this.Invoke(new EventHandler(Vypis_hodnoty));
             }
-            catch
+            else
             {
+                Socket_aktualizacia.Enabled = false;
+                MessageBox.Show("reset");
                 robot_socket.gafuso_send_data("reset");
+                System.Threading.Thread.Sleep(2000);
+                Socket_aktualizacia.Enabled = true;
             }
             blok = 0;
         }
